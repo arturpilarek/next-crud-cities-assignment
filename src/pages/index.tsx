@@ -1,3 +1,5 @@
+import CityItem from "@/components/city-item"
+
 type City = {
   id: number,
   name: string
@@ -12,29 +14,20 @@ type City = {
   export default function Home({ cities} : props) {
 
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen p-24">
+    <main className="flex flex-col items-center min-h-screen p-24">
       <h1 className="text-6xl font-bold">Cities</h1>
-      <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-        <ul>
+      <ul className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
         {cities.length > 0 && cities.map((city) => (
-          <li
-            key={city.id}
-            className="flex flex-col items-center justify-center w-64 h-64 p-6 mt-6 border rounded-lg shadow-xl"
-          >
-            <h3 className="mb-3 text-xl font-bold">{city.name}</h3>
-            <p className="mb-3">{city.country}</p>
-            <p className="mb-3">{city.population}</p>
-          </li>
+          <CityItem city={city} key={city.id}/>
         )) }
         {!cities || cities.length === 0 && (
           <li
-            className="flex flex-col items-center justify-center w-64 h-64 p-6 mt-6 border rounded-lg shadow-xl"
+            className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full"
           >
             <h3 className="mb-3 text-xl font-bold">No cities found</h3>
             </li>
             )}
-        </ul>
-      </div>
+      </ul>
     </main>
   )
 }
@@ -53,5 +46,6 @@ export async function getStaticProps() {
     props: {
       cities,
     },
+    revalidate: 10,
   }
 }

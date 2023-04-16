@@ -29,7 +29,7 @@ export default async (req, res) => {
         return
       }
 
-      const newCity = await db.collection("cities").updateOne(
+      const updatedCity = await db.collection("cities").updateOne(
         { name: cityName.toLowerCase() },
         {
           $set: {
@@ -46,11 +46,15 @@ export default async (req, res) => {
 
     // Delete city by name
     else if (req.method === "DELETE") {
-      const newCity = await db
+      const deletedCity = await db
         .collection("cities")
-        .deleteOne({ name: cityName.toLowerCase() })
+        .deleteOne({ name: cityName })
 
-      res.status(201).json({ message: "Success!" })
+      if (deletedCity.deletedCount === 0) {
+        res.status(422).json({ message: "Deletion failed." })
+        return
+      }
+      res.status(201).json({ message: "Deletion succeded!" })
     }
   } catch (e) {
     console.error(e)
