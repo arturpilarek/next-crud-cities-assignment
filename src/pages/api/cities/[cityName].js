@@ -8,7 +8,7 @@ export default async (req, res) => {
     const db = client.db("cities")
     const city = await db
       .collection("cities")
-      .find({ name: cityName.toLowerCase() })
+      .find({ name: cityName })
       .toArray()
 
     // Get city by name

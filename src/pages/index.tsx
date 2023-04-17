@@ -1,4 +1,5 @@
 import CityItem from "@/components/city-item"
+import Link from "next/link"
 
 type City = {
   id: number,
@@ -16,6 +17,7 @@ type City = {
   return (
     <main className="flex flex-col items-center min-h-screen p-24">
       <h1 className="text-6xl font-bold">Cities</h1>
+      <Link className="text-blue-500" href="/new-city">Add new city</Link>
       <ul className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
         {cities.length > 0 && cities.map((city) => (
           <CityItem city={city} key={city.id}/>
